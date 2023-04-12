@@ -1,13 +1,13 @@
-package com.example.cafemanagement;
+package com.example.CafeManagementbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CafemanagementApplication {
+public class CafeManagementBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CafemanagementApplication.class, args);
+		SpringApplication.run(CafeManagementBackendApplication.class, args);
 	}
 
 }
