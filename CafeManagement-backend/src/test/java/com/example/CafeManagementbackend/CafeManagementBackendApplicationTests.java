@@ -1,10 +1,10 @@
-package com.example.cafemanagement;
+package com.example.CafeManagementbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CafemanagementApplicationTests {
+class CafeManagementBackendApplicationTests {
 
 	@Test
 	void contextLoads() {
