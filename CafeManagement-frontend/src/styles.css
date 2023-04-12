@@ -1,1 +1,13 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "ngx-toastr/toastr";
+
+/* Import all Font Awesome CSS */
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+/* Import specific Font Awesome icon categories */
+@import "@fortawesome/fontawesome-free/css/brands.css";
+@import "@fortawesome/fontawesome-free/css/regular.css";
+@import "@fortawesome/fontawesome-free/css/solid.css";
