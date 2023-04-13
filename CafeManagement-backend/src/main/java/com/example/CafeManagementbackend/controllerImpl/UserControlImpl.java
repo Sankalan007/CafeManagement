@@ -26,4 +26,14 @@ public class UserControlImpl implements UserControl {
         }
         return Cafeutils.getResponseEntity("Something Went Wrong", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    @Override
+    public ResponseEntity<String> login(Map<String, String> requestMap) {
+        try{
+            return userService.login(requestMap);
+        }catch(Exception exception){
+            exception.printStackTrace();
+        }
+        return Cafeutils.getResponseEntity("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
