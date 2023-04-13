@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { FormsModule } from '@angular/forms';
     BillComponent,
     AnalyticsComponent,
     MenuComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
