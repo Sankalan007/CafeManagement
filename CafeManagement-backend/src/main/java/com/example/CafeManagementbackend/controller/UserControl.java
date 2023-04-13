@@ -11,4 +11,6 @@ import java.util.Map;
 public interface UserControl {
     @PostMapping("/register")
     public ResponseEntity<String> signup(@RequestBody Map<String,String> requestMap);
+    @PostMapping("/authenticate")
+    public ResponseEntity<String> login (@RequestBody Map<String,String> requestMap);
 }
