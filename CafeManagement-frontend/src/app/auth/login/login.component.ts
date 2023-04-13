@@ -43,32 +43,23 @@ export class LoginComponent implements OnInit {
             this.userDetails = user;
           },
           (error) => {
-            console.log(error);
+            this.toastr.error('Something went wrong!');
           }
         );
 
         this.router.navigate(['/']);
-        this.toastr.success('Yay! You are logged in', 'Login Succesful');
-        console.log('Login successful');
-        console.log(response);
+        this.toastr.success('Yay! You are logged in.', 'Login Succesful');
       },
       (error) => {
         // login failed, show error message
         this.errorMessage = 'Wrong user credentials';
         console.log(this.errorMessage);
-        this.toastr.error('Something went wrong!');
+        this.toastr.error('Please enter correct login credentials.');
       }
     );
     // this.router.navigate(['/']);
   }
   goToHome() {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/']);
-    } else {
-      this.toastr.warning(
-        'You have to be logged in to access the website',
-        'Please log in'
-      );
-    }
+    this.router.navigate(['/']);
   }
 }
