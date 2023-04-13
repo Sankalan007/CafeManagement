@@ -15,6 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MenuComponent } from './components/menu/menu.component';
     BillComponent,
     AnalyticsComponent,
     MenuComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

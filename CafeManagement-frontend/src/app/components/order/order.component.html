@@ -1,1 +1,135 @@
-<p>order works!</p>
+<div class="min-h-[87vh] bg-[#146C94]">
+  <div
+    class="max-w-md mx-auto min-h-[87.5vh] py-12 px-4 sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8 bg-[#146C94]"
+  >
+    <div class="sm:flex sm:items-center sm:justify-between">
+      <h2 class="text-3xl font-bold text-white mb-4 sm:mb-0">New Order</h2>
+    </div>
+
+    <form
+      [formGroup]="newOrderForm"
+      (ngSubmit)="submitOrder()"
+      class="mt-8 space-y-6"
+    >
+      <div class="flex justify-center">
+        <div class="w-[50%] mr-4">
+          <label for="food" class="block text-lg font-medium text-white">
+            Food(<span class="italic text-sm text-gray-300">required</span>
+            <span class="italic text-red-500">*</span>)
+          </label>
+          <div class="mt-1">
+            <select
+              id="food"
+              name="food"
+              formControlName="food"
+              class="p-4 form-select block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-700 rounded-md"
+            >
+              <option value="" disabled selected>Select food</option>
+              <option value="burger (5.99)">Burger ($5.99)</option>
+              <option value="pizza (8.99)">Pizza ($8.99)</option>
+              <option value="taco (3.99)">Taco ($3.99)</option>
+              <option value="salad (4.99)">Salad ($4.99)</option>
+              <option value="sandwich (6.99)">Sandwich ($6.99)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="w-[50%] ml-4">
+          <label for="quantity" class="block text-lg font-medium text-white">
+            Quantity(<span class="italic text-sm text-gray-300">required</span>
+            <span class="italic text-red-500">*</span>)
+          </label>
+          <div class="mt-1">
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              formControlName="quantity"
+              class="p-4 form-input shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-700 rounded-md"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label
+          for="specialInstructions"
+          class="block text-lg font-medium text-white"
+        >
+          Special Instructions(<span class="italic text-sm text-gray-300"
+            >optional</span
+          >)
+        </label>
+        <div class="mt-1">
+          <textarea
+            placeholder="Input any dietary restrictions or any other instructions"
+            id="specialInstructions"
+            name="specialInstructions"
+            formControlName="specialInstructions"
+            class="text-black caret-black p-4 form-textarea shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full text-md border-gray-700 rounded-md"
+          ></textarea>
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <div class="w-1/2 mr-2">
+          <label for="orderType" class="block text-lg font-medium text-white">
+            Order type(<span class="italic text-sm text-gray-300">required</span
+            ><span class="italic text-red-500">*</span>)
+          </label>
+          <div class="mt-1">
+            <select
+              id="orderType"
+              name="orderType"
+              formControlName="orderType"
+              class="p-4 form-select block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-700 rounded-md"
+            >
+              <option value="" disabled selected>Select order type</option>
+              <option value="cash">Dine in</option>
+              <option value="credit card">Takeout</option>
+              <option value="debit card">Delivery</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="w-1/2 ml-2">
+          <label
+            for="paymentMethod"
+            class="block text-lg font-medium text-white"
+          >
+            Payment Method(<span class="italic text-sm text-gray-300"
+              >required</span
+            >
+            <span class="italic text-red-500">*</span>)
+          </label>
+          <div class="mt-1">
+            <select
+              id="paymentMethod"
+              name="paymentMethod"
+              formControlName="paymentMethod"
+              class="p-4 form-select block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-700 rounded-md"
+            >
+              <option value="" disabled selected>
+                Select a payment method
+              </option>
+              <option value="cash">Cash</option>
+              <option value="credit card">Credit Card</option>
+              <option value="debit card">Debit Card</option>
+              <option value="digital wallet">Digital Wallet</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end mt-6">
+        <button
+          type="submit"
+          class="text-white bg-blue-500 rounded-lg p-3"
+          [disabled]="newOrderForm.invalid"
+        >
+          Place order
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
