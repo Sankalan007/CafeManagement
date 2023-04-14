@@ -19,6 +19,7 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
+    //Extract Token->Compare token username with database username via userDetails->Create an Authentication token->Keep authentication token in SecurityContextHolder
     @Autowired
     private   JwtUtil jwtUtil;
     @Autowired
@@ -37,15 +38,15 @@ public class JwtFilter extends OncePerRequestFilter {
             String token= null;
          if(authorizationHeader!=null && authorizationHeader.startsWith("Bearer ")){
              token=authorizationHeader.substring(7);
-             username= jwtUtil.extractUsername(token);
+             username= jwtUtil.extractUsername(token);//Token Username
              claims= jwtUtil.extractAllClaims(token);
          }
          if(username!=null && SecurityContextHolder.getContext().getAuthentication()==null){
-             UserDetails userDetails= customerUserDetailsService.loadUserByUsername(username);
+             UserDetails userDetails= customerUserDetailsService.loadUserByUsername(username);//Database username
              if(jwtUtil.validateToken(token,userDetails)){
                  UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken= new UsernamePasswordAuthenticationToken
                          (userDetails,null,userDetails.getAuthorities());
-                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                 usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));//Karna padta hai
                  SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
              }
          }

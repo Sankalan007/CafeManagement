@@ -24,7 +24,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
         userDetail=userRepo.findByEmailId(username);
         if(!Objects.isNull(userDetail))
             return  new org.springframework.security.core.userdetails.User(userDetail.getEmail(),userDetail.getPassword()
-            ,new ArrayList<>());
+            ,new ArrayList<>());//The User used is pre-built one.userDetail is the database one.
         else  throw  new UsernameNotFoundException("User not found");
     }
     public User getUserDetail(){
