@@ -49,6 +49,7 @@ public class JwtUtil {
                 .signWith(SignatureAlgorithm.HS256,secret)
                 .compact();
     }
+
     public String generateToken(String username,String role){
         Map<String,Object> claims =new HashMap<>();
         claims.put("role",role);

@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import java.io.Serializable;
 
 @NamedQuery(name="User.findByEmailId",query="select u from User u where u.email=:email")
+@NamedQuery(name="User.getAllUser",query="select new com.example.CafeManagementbackend.wrapper.UserWrapper(u.id,u.firstName,u.lastName,u.userName,u.email,u.status) from User u where u.role='user'")
 @Data
 @Entity
 @DynamicInsert
@@ -22,6 +23,7 @@ public class User implements Serializable {
     private String lastName;
     @Column(unique = true)
     private String userName;
+
     private String email;
      private String password;
      private String status;

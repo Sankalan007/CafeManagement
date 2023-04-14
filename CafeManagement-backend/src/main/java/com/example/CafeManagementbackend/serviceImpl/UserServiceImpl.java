@@ -7,6 +7,7 @@ import com.example.CafeManagementbackend.jwt.JwtUtil;
 import com.example.CafeManagementbackend.model.User;
 import com.example.CafeManagementbackend.repo.UserRepo;
 import com.example.CafeManagementbackend.service.UserService;
+import com.example.CafeManagementbackend.wrapper.UserWrapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -26,6 +29,19 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    //Business logic for signup
+    /*
+    ->Validating request
+    ->Get tuple for that email from database via Repo
+    ->If it is null than save new user im database
+    ->If tuple already exist than return message already exist
+    //Business logic for login
+    ->Create a new UserNamePasswordAuthentication token with "new" as keyword and email and password of request as parameter
+    ->Authenticate that token using AuthenticationManger and value which is returned is of type "Authentication"
+    ->check for .isAuthenticated() method on above Authentication object.
+    ->after above step,if status is true than generate token(token is generated using details from database and not from request) and return it, if not than return message "Need Approval"
+    *
+    * */
     @Autowired
      UserRepo userRepo;
     @Autowired
@@ -104,5 +120,17 @@ public class UserServiceImpl implements UserService {
             log.error("{}",exception);
         }
         return new ResponseEntity<String>("{\"message\":\""+"Bad credentials"+"\"}",HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<List<UserWrapper>> getAllUser() {
+        try{
+           if(jwtFilter.isAdmin()){
+               return new ResponseEntity<>(userRepo.getAllUser(),HttpStatus.OK);
+           }else return new ResponseEntity<>(new ArrayList<>(),HttpStatus.UNAUTHORIZED);
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

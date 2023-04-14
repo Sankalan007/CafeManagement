@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 public class Cafeutils {
     public static ResponseEntity<String>getResponseEntity(String response, HttpStatus httpStatus){
-        return new ResponseEntity<String>("{\"meassge\":\""+response+"\"}",httpStatus);
+        return new ResponseEntity<String>("{\"message\":\""+response+"\"}",httpStatus);
     }
 
 }
