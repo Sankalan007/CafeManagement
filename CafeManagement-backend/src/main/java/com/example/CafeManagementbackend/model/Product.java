@@ -8,7 +8,6 @@ import org.hibernate.annotations.DynamicUpdate;
 import java.io.Serializable;
 
 @NamedQuery(name="Product.getAllProducts",query = "select new com.example.CafeManagementbackend.wrapper.ProductWrapper(p.id,p.name,p.description,p.price,p.status) from Product p")
-@NamedQuery(name="Product.getProductById",query="select new com.example.CafeManagementbackend.wrapper.ProductWrapper(p.id,p.name,p.description,p.price) from Product p where p.id=:id")
 @Data
 @Entity
 @DynamicInsert

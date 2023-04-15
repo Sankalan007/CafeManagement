@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface ProductRepo extends JpaRepository<Product,Integer> {
 List<ProductWrapper> getAllProducts();
-ProductWrapper getProductById(@Param("id") Integer id);
+
 }

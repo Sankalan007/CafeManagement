@@ -74,6 +74,26 @@ public class ProductServiceImpl implements ProductService {
         return new ResponseEntity<>("Something went wrong in updating logic",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @Override
+    public ResponseEntity<String> deleteProduct(Integer id) {
+        try{
+            if(jwtFilter.isAdmin()){
+                Optional<Product> product=productRepo.findById(id);
+                if(product.isPresent()){
+                    productRepo.deleteById(id);
+                    return new ResponseEntity<>("Product was deleted successfully",HttpStatus.OK);
+                }else{
+                    return new ResponseEntity<>("Product with id:"+id+"does not exist",HttpStatus.NOT_FOUND);
+                }
+            }else{
+                return new ResponseEntity<>("You are not authorized for this action",HttpStatus.UNAUTHORIZED);
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>("Something went wrong due to server",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     private Product getProductFromMap(Map<String, String> requestMap, boolean isAdd) {
         Product product=new Product();
         if(isAdd){
