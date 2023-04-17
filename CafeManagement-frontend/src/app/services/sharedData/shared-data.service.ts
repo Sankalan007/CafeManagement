@@ -10,8 +10,7 @@ export class ShareddataService {
 
   private userDetailsSetSource = new Subject<boolean>();
   userDetailsSet$ = this.userDetailsSetSource.asObservable();
-
-  private userDetailsSubject = new BehaviorSubject<User>(
+  private userDetailsSubject = new BehaviorSubject<any>(
     JSON.parse(localStorage.getItem('userDetails') as string)
   );
   public userDetailsObservable = this.userDetailsSubject.asObservable();

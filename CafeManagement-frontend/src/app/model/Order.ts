@@ -1,6 +1,6 @@
 export default interface Order {
   name: string;
-  price: number;
-  quantity: number;
-  total: number;
+  price: string;
+  quantity: string;
+  total: string;
 }

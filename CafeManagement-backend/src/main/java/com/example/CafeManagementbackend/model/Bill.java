@@ -28,9 +28,8 @@ public class Bill implements Serializable {
     private String lastName;
     private String email;
     private String paymentMethod;
-    private Integer totalAmount;
+    private String totalAmount;
     private String orderType;
-
 
     @Column( columnDefinition = "json")
     private String productDetail;

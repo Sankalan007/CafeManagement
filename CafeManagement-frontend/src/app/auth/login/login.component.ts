@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         this.authService.getUserDetails().subscribe(
           (user: any) => {
             console.log(response.token);
-            console.log(user);
+            // console.log(user);
 
             this.sharedDataService.setUserDetails(user);
             this.userDetails = user;
