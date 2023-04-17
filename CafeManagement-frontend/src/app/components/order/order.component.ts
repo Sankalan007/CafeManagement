@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import Order from 'src/app/model/Order';
 import Orders from 'src/app/model/Orders';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { MenuService } from 'src/app/services/menu/menu.service';
 import { OrderService } from 'src/app/services/order/order.service';
 import { ShareddataService } from 'src/app/services/sharedData/shared-data.service';
 
@@ -19,13 +20,15 @@ export class OrderComponent implements OnInit {
   order: Order[] = [];
   selectedOrderType: string = '';
   selectedPaymentMethod: string = '';
+  items!: any;
 
   constructor(
     private fb: FormBuilder,
     private toastr: ToastrService,
     private orderService: OrderService,
     private authService: AuthService,
-    private sharedDataService: ShareddataService
+    private sharedDataService: ShareddataService,
+    private menuService: MenuService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +41,7 @@ export class OrderComponent implements OnInit {
       orderType: ['', Validators.required],
       paymentMethod: ['', Validators.required],
     });
+    this.getProducts();
   }
 
   addFood() {
@@ -50,8 +54,8 @@ export class OrderComponent implements OnInit {
     });
 
     const foodAndPrice = currentOrder.food;
-    const [food, pr] = foodAndPrice.split(' (');
-    const price = parseFloat(pr.slice(0, -1)).toFixed(2);
+    const [food, pr] = foodAndPrice.split(' - ');
+    const price = parseFloat(pr).toFixed(2);
     const quantity = currentOrder.quantity;
     const singleOrder: Order = {
       name: food,
@@ -112,5 +116,17 @@ export class OrderComponent implements OnInit {
         }
       );
     }
+  }
+
+  getProducts() {
+    this.menuService.getProducts().subscribe(
+      (res: any) => {
+        console.log(res);
+        this.items = res;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.message);
+      }
+    );
   }
 }

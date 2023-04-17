@@ -17,7 +17,10 @@ export class DashboardComponent implements OnInit {
   getAllBills() {
     this.orderService.getAllBills().subscribe(
       (res: any) => {
-        this.allOrders = res;
+        this.allOrders = res.map((order: any) => {
+          order.productDetail = JSON.parse(order.productDetail);
+          return order;
+        });
         console.log(this.allOrders);
       },
       (error: HttpErrorResponse) => {

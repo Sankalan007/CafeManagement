@@ -1,4 +1,4 @@
-<div class="min-h-[87vh] bg-gradient-to-r from-purple-500 to-blue-500">
+<div class="min-h-[87vh] bg-gradient-to-r from-orange-600 to-yellow-600">
   <div
     class="max-w-md mx-auto min-h-[87.5vh] py-12 px-4 sm:py-16 sm:px-6 lg:max-w-7xl lg:px-8"
   >
@@ -25,11 +25,12 @@
               class="p-4 form-select block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-700 rounded-md"
             >
               <option value="" disabled selected>Select food</option>
-              <option value="burger (5.99)">Burger ($5.99)</option>
-              <option value="pizza (8.99)">Pizza ($8.99)</option>
-              <option value="taco (3.99)">Taco ($3.99)</option>
-              <option value="salad (4.99)">Salad ($4.99)</option>
-              <option value="sandwich (6.99)">Sandwich ($6.99)</option>
+              <option
+                *ngFor="let item of items"
+                [value]="item.name + ' - ' + item.price"
+              >
+                {{ item.name }} (₹{{ item.price }})
+              </option>
             </select>
           </div>
         </div>
