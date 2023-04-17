@@ -1,9 +1,29 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MenuService {
+  private baseUrl = 'http://localhost:8080/api/v1/product';
+  constructor(private http: HttpClient) {}
 
-  constructor() { }
+  getProducts(): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.get(`${this.baseUrl}/get`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  addProduct(product: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.post(`${this.baseUrl}/add`, product, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }

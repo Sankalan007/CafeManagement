@@ -1,64 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Recent Orders</title>
+<header class="bg-white shadow">
+  <div class="container mx-auto py-4 px-8">
+    <h1 class="text-gray-800 font-bold text-xl">Recent Orders</h1>
+  </div>
+</header>
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.4/tailwind.min.css"
-      integrity="sha512-qB/HM3q+Pf6U8jjYjKCBJ2Qk+lf9WbR8jtyZl6zZGv3Cq6w8UtpMQyjQuqw2Q/v+B9XbW8R79NCnZTgjKzVyEA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-  </head>
-  <body class="bg-gray-50">
-    <header class="bg-white shadow">
-      <div class="container mx-auto py-4 px-8">
-        <h1 class="text-gray-800 font-bold text-xl">Recent Orders</h1>
+<main class="container mx-auto py-6 px-8">
+  <!-- Recent Orders -->
+  <section class="bg-white rounded-lg shadow">
+    <div class="overflow-x-auto">
+      <table class="table-auto w-full whitespace-no-wrap">
+        <thead>
+          <tr class="text-left font-bold">
+            <th class="px-4 py-2">Ordered by</th>
+            <th class="px-4 py-2">Orders</th>
+            <th class="px-4 py-2">Date</th>
+            <th class="px-4 py-2">Total</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-700">
+          <ng-container *ngFor="let order of allOrders; let i = index">
+            <tr>
+              <td class="px-4 py-3">
+                {{ order.firstName }} {{ order.lastName }}
+              </td>
+              <td class="px-4 py-3">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of order.productDetail">
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.price }}</td>
+                      <td>{{ item.quantity }}</td>
+                      <td>{{ item.total }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td class="px-4 py-3">{{ order.date }}</td>
+              <td class="px-4 py-3">{{ order.totalAmount }}</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Canvas 1 -->
+  <div class="flex flex-col lg:flex-row mt-6">
+    <div class="w-full lg:w-1/2 lg:mr-2 mb-4 lg:mb-0">
+      <div class="bg-white rounded-lg shadow">
+        <canvas #canvas> </canvas>
       </div>
-    </header>
-
-    <main class="container mx-auto py-6 px-8">
-      <!-- Recent Orders -->
-      <section class="bg-white rounded-lg shadow">
-        <div class="overflow-x-auto">
-          <table class="table-auto w-full whitespace-no-wrap">
-            <thead>
-              <tr class="text-left font-bold">
-                <th class="px-4 py-2">Order ID</th>
-                <th class="px-4 py-2">Orders</th>
-                <th class="px-4 py-2">Date</th>
-                <th class="px-4 py-2">Total</th>
-              </tr>
-            </thead>
-            <tbody class="text-gray-700">
-              <tr *ngFor="let order of allOrders">
-                <td class="px-4 py-3">{{ order.email }}</td>
-                <td class="px-4 py-3">{{ order.firstName }}</td>
-                <td class="px-4 py-3">{{ order.lastName }}</td>
-                <td class="px-4 py-3">{{ order.paymentMethod }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- Canvas 1 -->
-      <div class="flex flex-col lg:flex-row mt-6">
-        <div class="w-full lg:w-1/2 lg:mr-2 mb-4 lg:mb-0">
-          <div class="bg-white rounded-lg shadow">
-            <canvas #canvas> </canvas>
-          </div>
-        </div>
-        <!-- Canvas 2 -->
-        <div class="w-full lg:w-1/2 lg:ml-2">
-          <div class="bg-white rounded-lg shadow">
-            <canvas id="canvas2"> </canvas>
-          </div>
-        </div>
+    </div>
+    <!-- Canvas 2 -->
+    <div class="w-full lg:w-1/2 lg:ml-2">
+      <div class="bg-white rounded-lg shadow">
+        <canvas id="canvas2"> </canvas>
       </div>
-    </main>
-  </body>
-</html>
+    </div>
+  </div>
+</main>
