@@ -27,6 +27,7 @@ public class Bill implements Serializable {
     private String email;
     private String paymentMethod;
     private Integer totalAmount;
+    private String orderType;
 
 
     @Column( columnDefinition = "json")

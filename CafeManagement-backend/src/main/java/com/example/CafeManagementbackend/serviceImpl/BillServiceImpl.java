@@ -57,6 +57,7 @@ public class BillServiceImpl implements BillService {
             bill.setLastName((String)requestMap.get("lastName"));
             bill.setEmail((String) requestMap.get("email"));
             bill.setPaymentMethod((String)requestMap.get("paymentMethod"));
+            bill.setOrderType((String)requestMap.get("orderType"));
             bill.setTotalAmount(Integer.parseInt((String)requestMap.get("totalAmount")));
             bill.setProductDetail((String) requestMap.get("productDetail"));
             bill.setCreatedBy(jwtFilter.getCurrentUser());
@@ -74,6 +75,7 @@ public class BillServiceImpl implements BillService {
                 requestMap.containsKey("email")&&
                 requestMap.containsKey("paymentMethod")&&
                 requestMap.containsKey("totalAmount")&&
+                requestMap.containsKey("orderType")&&
                 requestMap.containsKey("productDetail");
 
 
