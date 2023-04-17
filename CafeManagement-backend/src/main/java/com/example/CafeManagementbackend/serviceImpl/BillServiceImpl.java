@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -47,6 +49,22 @@ public class BillServiceImpl implements BillService {
             ex.printStackTrace();
         }
         return new ResponseEntity<>("Something Went Wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<Bill>> getBill() {
+        List<Bill> bills = new ArrayList<>();
+        try{
+            if(jwtFilter.isAdmin()){
+                bills= billRepo.getAllBills();
+            }
+            else{
+                bills= billRepo.getBillByUsername( jwtFilter.getCurrentUser());
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(bills, HttpStatus.OK);
     }
 
     private void insertBill(Map<String, Object> requestMap) {

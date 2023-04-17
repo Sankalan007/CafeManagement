@@ -1,6 +1,7 @@
 package com.example.CafeManagementbackend.controllerImpl;
 
 import com.example.CafeManagementbackend.controller.BillControl;
+import com.example.CafeManagementbackend.model.Bill;
 import com.example.CafeManagementbackend.service.BillService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 @RestController
 @RequiredArgsConstructor
@@ -25,5 +28,16 @@ public class BillControlImpl implements BillControl {
             ex.printStackTrace();
         }
         return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @Override
+    public ResponseEntity<List<Bill>> geBill() {
+        try{
+            return billService.getBill();
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+        }
+        return new ResponseEntity<>(new ArrayList<>() , HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
