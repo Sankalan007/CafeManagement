@@ -35,7 +35,7 @@ export class AuthService {
 
   getUserDetails(): Observable<any> {
     const token = localStorage.getItem('token');
-    return this.http.get(`${this.baseUrl}/user-details`, {
+    return this.http.get(`http://localhost:8080/api/v1/userDetails`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

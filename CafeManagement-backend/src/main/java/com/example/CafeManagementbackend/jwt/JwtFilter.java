@@ -55,7 +55,7 @@ public class JwtFilter extends OncePerRequestFilter {
              identity = username;
 
          }
-            username=null;
+         username = null;
          filterChain.doFilter(request,response);
         
         }
