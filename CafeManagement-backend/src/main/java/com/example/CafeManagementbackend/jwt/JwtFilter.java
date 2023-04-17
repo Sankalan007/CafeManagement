@@ -24,6 +24,8 @@ public class JwtFilter extends OncePerRequestFilter {
     private   JwtUtil jwtUtil;
     @Autowired
     private  CustomerUserDetailsService customerUserDetailsService;
+
+    private String identity=null;
     Claims claims=null;
     private  String username=null;
 
@@ -50,10 +52,12 @@ public class JwtFilter extends OncePerRequestFilter {
                  usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));//Karna padta hai
                  SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
              }
-         }
-        username = null;
+             identity = username;
 
-        filterChain.doFilter(request,response);
+         }
+            username=null;
+         filterChain.doFilter(request,response);
+        
         }
     }
     public boolean isAdmin(){
@@ -63,6 +67,8 @@ public class JwtFilter extends OncePerRequestFilter {
         return "user".equalsIgnoreCase((String) claims.get("role"));
     }
     public String getCurrentUser(){
-        return username;
+
+//        return username;
+        return identity;
     }
 }

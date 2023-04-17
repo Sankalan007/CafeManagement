@@ -127,7 +127,8 @@ public class UserServiceImpl implements UserService {
         try{
            if(jwtFilter.isAdmin()){
                return new ResponseEntity<>(userRepo.getAllUser(),HttpStatus.OK);
-           }else return new ResponseEntity<>(new ArrayList<>(),HttpStatus.UNAUTHORIZED);
+           }else
+               return new ResponseEntity<>(userRepo.getByUsername(jwtFilter.getCurrentUser()),HttpStatus.OK);
         }catch(Exception ex){
             ex.printStackTrace();
         }
