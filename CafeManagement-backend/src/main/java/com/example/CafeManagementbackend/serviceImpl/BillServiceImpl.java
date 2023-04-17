@@ -76,7 +76,7 @@ public class BillServiceImpl implements BillService {
             bill.setEmail((String) requestMap.get("email"));
             bill.setPaymentMethod((String)requestMap.get("paymentMethod"));
             bill.setOrderType((String)requestMap.get("orderType"));
-            bill.setTotalAmount(Integer.parseInt((String)requestMap.get("totalAmount")));
+            bill.setTotalAmount((String)requestMap.get("totalAmount"));
             bill.setProductDetail((String) requestMap.get("productDetail"));
             bill.setCreatedBy(jwtFilter.getCurrentUser());
             billRepo.save(bill);

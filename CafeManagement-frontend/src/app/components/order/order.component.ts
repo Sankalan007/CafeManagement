@@ -1,8 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import Order from 'src/app/model/Order';
 import Orders from 'src/app/model/Orders';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { OrderService } from 'src/app/services/order/order.service';
+import { ShareddataService } from 'src/app/services/sharedData/shared-data.service';
 
 @Component({
   selector: 'app-order',
@@ -10,14 +14,24 @@ import Orders from 'src/app/model/Orders';
   styleUrls: ['./order.component.css'],
 })
 export class OrderComponent implements OnInit {
+  userDetails!: any;
   newOrderForm!: FormGroup;
   order: Order[] = [];
   selectedOrderType: string = '';
   selectedPaymentMethod: string = '';
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private orderService: OrderService,
+    private authService: AuthService,
+    private sharedDataService: ShareddataService
+  ) {}
 
   ngOnInit(): void {
+    this.sharedDataService.userDetailsObservable.subscribe((userDetails) => {
+      this.userDetails = userDetails;
+    });
     this.newOrderForm = this.fb.group({
       food: [''],
       quantity: [''],
@@ -37,23 +51,23 @@ export class OrderComponent implements OnInit {
 
     const foodAndPrice = currentOrder.food;
     const [food, pr] = foodAndPrice.split(' (');
-    const price = parseFloat(parseFloat(pr.slice(0, -1)).toFixed(2));
+    const price = parseFloat(pr.slice(0, -1)).toFixed(2);
     const quantity = currentOrder.quantity;
     const singleOrder: Order = {
       name: food,
-      price: price,
-      quantity: quantity,
-      total: parseFloat((price * quantity).toFixed(2)),
+      price: price.toString(),
+      quantity: quantity.toString(),
+      total: (parseFloat(price) * quantity).toFixed(2),
     };
 
     this.order.push(singleOrder);
   }
 
-  calculateSubtotal(): number {
+  calculateSubtotal(): string {
     const sumTotal = this.order.reduce((acc, order) => {
-      return acc + order.total;
+      return acc + parseFloat(order.total);
     }, 0);
-    return parseFloat(sumTotal.toFixed(2));
+    return sumTotal.toFixed(2);
   }
 
   onOrderTypeChange(event: any) {
@@ -72,14 +86,14 @@ export class OrderComponent implements OnInit {
       );
     } else {
       const orders: Orders = {
-        createdBy: 'sankalan.chanda312@gmail.com',
-        email: 'sankalan.chanda312@gmail.com',
-        firstName: 'Sankalan',
-        lastName: 'Chanda',
-        orderType: this.selectedOrderType,
-        paymentMethod: this.selectedPaymentMethod,
-        productDetail: this.order,
-        totalAmount: this.calculateSubtotal(),
+        createdBy: this.userDetails[0].userName.toString(),
+        email: this.userDetails[0].email.toString(),
+        firstName: this.userDetails[0].firstName.toString(),
+        lastName: this.userDetails[0].lastName.toString(),
+        orderType: this.selectedOrderType.toString(),
+        paymentMethod: this.selectedPaymentMethod.toString(),
+        productDetail: JSON.stringify(this.order),
+        totalAmount: this.calculateSubtotal().toString(),
       };
       console.log(orders);
       this.order = [];
@@ -89,6 +103,14 @@ export class OrderComponent implements OnInit {
         orderType: ['', Validators.required],
         paymentMethod: ['', Validators.required],
       });
+      this.orderService.addBill(orders).subscribe(
+        (res: any) => {
+          console.log(res);
+        },
+        (error: HttpErrorResponse) => {
+          // console.log(error.message);
+        }
+      );
     }
   }
 }

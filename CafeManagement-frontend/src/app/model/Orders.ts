@@ -7,6 +7,6 @@ export default interface Orders {
   lastName: string;
   orderType: string;
   paymentMethod: string;
-  productDetail: Order[];
-  totalAmount: number;
+  productDetail: string; //previously Order[] = [];
+  totalAmount: string;
 }
