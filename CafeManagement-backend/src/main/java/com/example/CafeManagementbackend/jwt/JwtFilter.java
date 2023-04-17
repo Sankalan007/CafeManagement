@@ -35,7 +35,8 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(request.getServletPath().matches("/api/v1/auth/register | /api/v1/auth/authenticate")){
             filterChain.doFilter(request,response);
-        }else {
+        }
+        else {
             String authorizationHeader=request.getHeader("Authorization");
             String token= null;
          if(authorizationHeader!=null && authorizationHeader.startsWith("Bearer ")){
@@ -55,11 +56,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
          }
             username=null;
-
-
-
-
          filterChain.doFilter(request,response);
+        
         }
     }
     public boolean isAdmin(){
