@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 @NamedQuery(name="User.findByEmailId",query="select u from User u where u.email=:email")
 @NamedQuery(name="User.getAllUser",query="select new com.example.CafeManagementbackend.wrapper.UserWrapper(u.id,u.firstName,u.lastName,u.userName,u.email,u.status) from User u where u.role='user'")
+@NamedQuery(name="User.getByUsername",query="select new com.example.CafeManagementbackend.wrapper.UserWrapper(u.id,u.firstName,u.lastName,u.userName,u.email,u.status) from User u where u.email=:username")
 @Data
 @Entity
 @DynamicInsert

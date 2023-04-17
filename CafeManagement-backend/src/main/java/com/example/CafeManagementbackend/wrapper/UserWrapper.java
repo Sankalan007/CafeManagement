@@ -1,5 +1,6 @@
 package com.example.CafeManagementbackend.wrapper;
 
+import jakarta.persistence.NamedQuery;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
