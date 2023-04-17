@@ -40,6 +40,8 @@ public class UserControlImpl implements UserControl {
         return Cafeutils.getResponseEntity("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+
+    @CrossOrigin
     @Override
     public ResponseEntity<List<UserWrapper>> getAllUsers() {
         try{
