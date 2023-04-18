@@ -109,9 +109,11 @@ export class OrderComponent implements OnInit {
       });
       this.orderService.addBill(orders).subscribe(
         (res: any) => {
+          this.toastr.success('Your order is placed!', 'Order successful');
           // console.log(res);
         },
         (error: HttpErrorResponse) => {
+          this.toastr.success('Your order is placed!', 'Order successful');
           // console.log(error.message);
         }
       );
