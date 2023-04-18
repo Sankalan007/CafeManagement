@@ -18,6 +18,6 @@ public interface ProductControl {
     @PostMapping("/product/update")
     public ResponseEntity<String> updateProduct(@RequestBody Map<String,String> requestMap);
 
-    @PostMapping("/product/delete/{id}")
+    @DeleteMapping("/product/delete/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Integer id);
 }

@@ -99,7 +99,7 @@ export class OrderComponent implements OnInit {
         productDetail: JSON.stringify(this.order),
         totalAmount: this.calculateSubtotal().toString(),
       };
-      console.log(orders);
+      // console.log(orders);
       this.order = [];
       this.newOrderForm = this.fb.group({
         food: [''],
@@ -109,7 +109,7 @@ export class OrderComponent implements OnInit {
       });
       this.orderService.addBill(orders).subscribe(
         (res: any) => {
-          console.log(res);
+          // console.log(res);
         },
         (error: HttpErrorResponse) => {
           // console.log(error.message);
@@ -121,7 +121,7 @@ export class OrderComponent implements OnInit {
   getProducts() {
     this.menuService.getProducts().subscribe(
       (res: any) => {
-        console.log(res);
+        // console.log(res);
         this.items = res;
       },
       (error: HttpErrorResponse) => {

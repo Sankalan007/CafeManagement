@@ -26,4 +26,22 @@ export class MenuService {
       },
     });
   }
+
+  updateProduct(product: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.post(`${this.baseUrl}/update`, product, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  deleteProduct(id: number): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.delete(`${this.baseUrl}/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
 }

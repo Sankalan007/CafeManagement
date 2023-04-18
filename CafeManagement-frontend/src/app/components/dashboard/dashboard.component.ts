@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
           order.productDetail = JSON.parse(order.productDetail);
           return order;
         });
-        console.log(this.allOrders);
+        // console.log(this.allOrders);
       },
       (error: HttpErrorResponse) => {
         console.log(error.message);
