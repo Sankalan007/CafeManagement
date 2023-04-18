@@ -107,9 +107,12 @@ public class UserServiceImpl implements UserService {
                     (requestMap.get("email"),requestMap.get("password")));
             if(authentication.isAuthenticated()){
                 if(customerUserDetailsService.getUserDetail().getStatus().equalsIgnoreCase("true")){
+//                    return  new ResponseEntity<String>("{\"token\":\""+
+//                            jwtUtil.generateToken(customerUserDetailsService.getUserDetail().getEmail(),
+//                                    customerUserDetailsService.getUserDetail().getRole())+"\"}",HttpStatus.OK);
                     return  new ResponseEntity<String>("{\"token\":\""+
                             jwtUtil.generateToken(customerUserDetailsService.getUserDetail().getEmail(),
-                                    customerUserDetailsService.getUserDetail().getRole())+"\"}",HttpStatus.OK);
+                                    customerUserDetailsService.getUserDetail().getRole())+"\",\"role\":\""+customerUserDetailsService.getUserDetail().getRole()+"\"}",HttpStatus.OK);
 
                 }
                 else{
