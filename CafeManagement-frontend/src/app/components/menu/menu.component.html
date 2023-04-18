@@ -1,19 +1,91 @@
 <!-- menu.component.html -->
-<div>
+<div class="min-h-[87vh] bg-gradient-to-r from-orange-600 to-yellow-600">
+  <ng-container *ngIf="getRole()">
+    <div class="flex justify-center fixed top-[13vh] left-0 w-full z-50">
+      <button
+        (click)="toggleFoodForm()"
+        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded text-2xl"
+      >
+        As an admin, you can add new food items
+        <i class="text-2xl text-white fa fa-plus"></i>
+      </button>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="showFoodForm">
+    <div
+      class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+    >
+      <div
+        class="backdrop-blur-lg hover:backdrop-blur-xl w-full rounded-lg shadow-2xl md:mt-0 sm:max-w-md xl:p-0"
+      >
+        <form
+          [formGroup]="addItemForm"
+          (ngSubmit)="addProduct(addItemForm.value)"
+          class="bg-white rounded-lg p-6"
+        >
+          <div class="mb-4">
+            <label for="name" class="block text-gray-700 font-bold mb-2"
+              >Name</label
+            >
+            <input
+              type="text"
+              id="name"
+              formControlName="name"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div class="mb-4">
+            <label for="description" class="block text-gray-700 font-bold mb-2"
+              >Description</label
+            >
+            <textarea
+              id="description"
+              formControlName="description"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            ></textarea>
+          </div>
+          <div class="mb-4">
+            <label for="price" class="block text-gray-700 font-bold mb-2"
+              >Price</label
+            >
+            <input
+              type="number"
+              id="price"
+              formControlName="price"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+          </div>
+          <div class="flex justify-center">
+            <button
+              type="submit"
+              [disabled]="addItemForm.invalid"
+              class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+            >
+              Add to items
+              <i class="text-2xl text-white fa fa-plus"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-container>
+
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
     <div
       *ngFor="let item of items"
       class="bg-white shadow-md rounded-md overflow-hidden"
     >
       <img
-        src="https://source.unsplash.com/random/1600x900/?cafe"
+        src="https://source.unsplash.com/random/600x400/?{{ item.name }}"
         alt="{{ item.name }}"
         class="h-48 w-full object-cover"
       />
       <div class="p-4">
         <h2 class="font-bold text-xl">{{ item.name }}</h2>
         <p class="text-gray-700">{{ item.description }}</p>
-        <p class="text-gray-700 font-bold">{{ item.price | currency }}</p>
+        <p class="text-gray-700 font-bold">
+          {{ item.price | currency : "INR" }}
+        </p>
       </div>
     </div>
   </div>
