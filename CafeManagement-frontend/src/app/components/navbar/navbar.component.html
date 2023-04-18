@@ -24,7 +24,10 @@
           <button
             class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-lg font-medium"
           >
-            {{ userDetails[0].userName }}
+            <ng-container *ngIf="!getRole()">
+              {{ userDetails[0].userName }}
+            </ng-container>
+            <ng-container *ngIf="getRole()"> ADMIN </ng-container>
           </button>
           <a
             (click)="logOut()"
