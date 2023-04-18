@@ -1,19 +1,21 @@
 <!-- menu.component.html -->
-<div class="min-h-[87vh] bg-gradient-to-r from-orange-600 to-yellow-600">
+<div class="min-h-[87vh] bg-gradient-to-r from-blue-700 to-gray-800">
   <ng-container *ngIf="getRole()">
-    <div class="flex justify-center fixed top-[13vh] left-0 w-full z-50">
+    <div
+      class="flex justify-center fixed lg:top-[13vh] md:[12vh] sm:[10vh] left-[42px] w-full z-50 text-sm lg:text-2xl md:text-xl sm:text-lg"
+    >
       <button
         (click)="toggleFoodForm()"
-        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded text-2xl"
+        class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
       >
         As an admin, you can add new food items
-        <i class="text-2xl text-white fa fa-plus"></i>
+        <i class="text-white fa fa-plus"></i>
       </button>
     </div>
   </ng-container>
   <ng-container *ngIf="showFoodForm">
     <div
-      class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0"
+      class="flex flex-col items-center justify-center px-6 py-16 lg:py-8 mx-auto md:h-screen"
     >
       <div
         class="backdrop-blur-lg hover:backdrop-blur-xl w-full rounded-lg shadow-2xl md:mt-0 sm:max-w-md xl:p-0"
@@ -70,13 +72,13 @@
     </div>
   </ng-container>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-6">
     <div
       *ngFor="let item of items"
       class="bg-white shadow-md rounded-md overflow-hidden"
     >
       <img
-        src="https://source.unsplash.com/random/600x400/?{{ item.name }}"
+        src="https://source.unsplash.com/random/600x350/?{{ item.name }}"
         alt="{{ item.name }}"
         class="h-48 w-full object-cover"
       />
@@ -87,10 +89,10 @@
           {{ item.price | currency : "INR" }}
         </p>
         <ng-container *ngIf="getRole()">
-          <div class="flex justify-between mt-4">
+          <div class="flex flex-col sm:flex-row justify-between mt-4">
             <button
               (click)="openEditModal(item)"
-              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full"
+              class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full mb-2 sm:mb-0"
             >
               <i class="fas fa-edit"></i> Update
             </button>
