@@ -20,4 +20,16 @@ export class ShareddataService {
     this.userDetailsSubject.next(userDetails);
     this.userDetailsSetSource.next(true);
   }
+
+  userRoleSet$ = this.userDetailsSetSource.asObservable();
+  private userRoleSubject = new BehaviorSubject<any>(
+    JSON.parse(localStorage.getItem('role') as string)
+  );
+  public userRoleObservable = this.userDetailsSubject.asObservable();
+
+  setUserRole(userDetails: any): void {
+    localStorage.setItem('role', JSON.stringify(userDetails));
+    this.userDetailsSubject.next(userDetails);
+    this.userDetailsSetSource.next(true);
+  }
 }

@@ -41,6 +41,11 @@ export class NavbarComponent implements OnInit {
   logOut() {
     this.authService.logout();
     this.sharedDataService.setUserDetails('');
+    this.sharedDataService.setUserRole('');
     this.toastr.info('You are logged out', 'Log out successful');
+  }
+
+  getRole() {
+    return this.authService.getRole();
   }
 }

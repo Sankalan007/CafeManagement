@@ -13,7 +13,7 @@
           <tr class="text-left font-bold">
             <th class="px-4 py-2">Ordered by</th>
             <th class="px-4 py-2">Orders</th>
-            <th class="px-4 py-2">Date</th>
+
             <th class="px-4 py-2">Total</th>
           </tr>
         </thead>
@@ -21,7 +21,7 @@
           <ng-container *ngFor="let order of allOrders; let i = index">
             <tr>
               <td class="px-4 py-3">
-                {{ order.firstName }} {{ order.lastName }}
+                {{ order.firstName }} {{ order.lastName }} - {{ order.email }}
               </td>
               <td class="px-4 py-3">
                 <table>
@@ -43,7 +43,7 @@
                   </tbody>
                 </table>
               </td>
-              <td class="px-4 py-3">{{ order.date }}</td>
+
               <td class="px-4 py-3">{{ order.totalAmount }}</td>
             </tr>
           </ng-container>
