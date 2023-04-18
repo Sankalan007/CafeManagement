@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MenuService } from 'src/app/services/menu/menu.service';
 import { OrderService } from 'src/app/services/order/order.service';
 
 @Component({
@@ -9,11 +10,23 @@ import { OrderService } from 'src/app/services/order/order.service';
 })
 export class DashboardComponent implements OnInit {
   allOrders!: any;
-  constructor(private orderService: OrderService) {}
+  menuItems!: any;
+  constructor(private orderService: OrderService,private menuService:MenuService) {}
   ngOnInit(): void {
     this.getAllBills();
+    this.getAllMenuItems();
   }
+  getAllMenuItems(){
+    this.menuService.getProducts().subscribe(
+      (res: any) => {
+        this.menuItems=res;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.message);
+      }
+    );
 
+  }
   getAllBills() {
     this.orderService.getAllBills().subscribe(
       (res: any) => {
