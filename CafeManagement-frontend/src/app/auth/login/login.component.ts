@@ -34,41 +34,33 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.password;
     this.authService.login(email, password).subscribe(
       (response: any) => {
-        // login successful, save token to local storage and retrieve user details
         localStorage.setItem('token', response.token);
+        localStorage.setItem('role', response.role);
+        // this.sharedDataService.setUserRole(localStorage.getItem('role'));
         this.authService.getUserDetails().subscribe(
           (user: any) => {
             console.log(response.token);
+            // console.log(user);
+
             this.sharedDataService.setUserDetails(user);
             this.userDetails = user;
           },
           (error) => {
-            console.log(error);
+            this.toastr.error('Something went wrong!');
           }
         );
 
         this.router.navigate(['/']);
-        this.toastr.success('Yay! You are logged in', 'Login Succesful');
-        console.log('Login successful');
-        console.log(response);
+        this.toastr.success('Yay! You are logged in.', 'Login Succesful');
       },
       (error) => {
-        // login failed, show error message
         this.errorMessage = 'Wrong user credentials';
         console.log(this.errorMessage);
-        this.toastr.error('Something went wrong!');
+        this.toastr.error('Please enter correct login credentials.');
       }
     );
-    // this.router.navigate(['/']);
   }
   goToHome() {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/']);
-    } else {
-      this.toastr.warning(
-        'You have to be logged in to access the website',
-        'Please log in'
-      );
-    }
+    this.router.navigate(['/']);
   }
 }

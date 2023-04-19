@@ -11,7 +11,16 @@ import { ShareddataService } from 'src/app/services/sharedData/shared-data.servi
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  userDetails!: User;
+  userDetails: any = [
+    {
+      id: 5,
+      firstName: 'Sankalan',
+      lastName: 'Chanda',
+      email: 'test1@gmail.com',
+      userName: 'test1',
+      status: 'true',
+    },
+  ];
   constructor(
     private sharedDataService: ShareddataService,
     private authService: AuthService,
@@ -23,6 +32,7 @@ export class NavbarComponent implements OnInit {
     this.sharedDataService.userDetailsObservable.subscribe((userDetails) => {
       this.userDetails = userDetails;
     });
+    // console.log(this.userDetails);
   }
   isAuthenticated() {
     return this.authService.isAuthenticated();
@@ -31,7 +41,12 @@ export class NavbarComponent implements OnInit {
   logOut() {
     this.authService.logout();
     this.sharedDataService.setUserDetails('');
-    this.router.navigate(['/login']);
+    // this.sharedDataService.setUserRole('');
     this.toastr.info('You are logged out', 'Log out successful');
+    this.router.navigate(['/']);
+  }
+
+  getRole() {
+    return this.authService.getRole();
   }
 }

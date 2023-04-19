@@ -15,7 +15,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AnalyticsComponent } from './components/analytics/analytics.component';
 import { MenuComponent } from './components/menu/menu.component';
-
+import { FormsModule } from '@angular/forms';
+import { HomeComponent } from './components/home/home.component';
+import { ButtonModule } from 'primeng/button';
+import { CardModule } from 'primeng/card';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,12 +30,16 @@ import { MenuComponent } from './components/menu/menu.component';
     BillComponent,
     AnalyticsComponent,
     MenuComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
+    ButtonModule,
+    CardModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-bottom-right',
