@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './auth/register/register.component';
 import { LoginComponent } from './auth/login/login.component';
 import { NgModule } from '@angular/core';
+import { TermsandconditionsComponent } from './components/termsandconditions/termsandconditions.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'terms', component: TermsandconditionsComponent },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
