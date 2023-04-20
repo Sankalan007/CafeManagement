@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -22,12 +27,21 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      userName: ['', Validators.required],
+      firstName: ['', [Validators.required, Validators.minLength(1)]],
+      lastName: ['', [Validators.required, Validators.minLength(1)]],
+      userName: ['', [Validators.required, Validators.minLength(1)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
+      terms: ['', [Validators.required, this.checkTerms.bind(this)]],
     });
+  }
+
+  checkTerms(control: FormControl): { [s: string]: boolean } | null {
+    const value = control.value;
+    if (!value) {
+      return { required: true };
+    }
+    return null;
   }
 
   onSubmit() {
@@ -47,6 +61,11 @@ export class RegisterComponent implements OnInit {
           console.log(error);
           this.toastr.error('WARNING: Username or Email already exists!');
         }
+      );
+    } else {
+      this.toastr.warning(
+        'Please fill all the fields accordingly',
+        'Invalid form'
       );
     }
   }
