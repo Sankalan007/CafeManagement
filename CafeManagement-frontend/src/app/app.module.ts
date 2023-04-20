@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms';
 import { HomeComponent } from './components/home/home.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { TermsandconditionsComponent } from './components/termsandconditions/termsandconditions.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +32,7 @@ import { CardModule } from 'primeng/card';
     AnalyticsComponent,
     MenuComponent,
     HomeComponent,
+    TermsandconditionsComponent,
   ],
   imports: [
     BrowserModule,
