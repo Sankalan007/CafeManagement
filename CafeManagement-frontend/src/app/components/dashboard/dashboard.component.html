@@ -62,11 +62,15 @@
 <div class="min-h-screen bg-gradient-to-r from-purple-500 to-blue-500">
   <div class="text-gray-800 py-4">
     <div class="flex justify-between max-w-4xl mx-auto px-4">
-      <div class="bg-blue-500 rounded-lg shadow-lg py-2 px-4 hover:scale-105 transition-all transform w-40 hover:bg-blue-600">
-        <h3 class="text-2xl font-bold ">Total Orders</h3>
+      <div
+        class="bg-blue-500 rounded-lg shadow-lg py-2 px-4 hover:scale-105 transition-all transform w-40 hover:bg-blue-600"
+      >
+        <h3 class="text-2xl font-bold">Total Orders</h3>
         <span class="text-3xl font-bold">{{ allOrders.length }}</span>
       </div>
-      <div class="bg-purple-500 rounded-lg shadow-lg py-2 px-4 hover:scale-105 transition-all transform w-40 hover:bg-purple-600">
+      <div
+        class="bg-purple-500 rounded-lg shadow-lg py-2 px-4 hover:scale-105 transition-all transform w-40 hover:bg-purple-600"
+      >
         <h3 class="text-2xl font-bold">Total Menu Items</h3>
         <span class="text-3xl font-bold">{{ menuItems.length }}</span>
       </div>
@@ -90,13 +94,12 @@
             <ng-container *ngFor="let order of allOrders; let i = index">
               <tr class="hover:bg-gray-100">
                 <td class="px-4 py-3">
-                  {{ order.firstName }} {{ order.lastName }} -
-                  {{ order.email }}
+                  {{ order.createdBy }}
                 </td>
                 <td class="px-4 py-3">
                   <table class="table-auto w-full">
                     <thead>
-                      <tr >
+                      <tr>
                         <th class="px-4 py-2">Name</th>
                         <th class="px-4 py-2">Price</th>
                         <th class="px-4 py-2">Quantity</th>
@@ -123,4 +126,3 @@
     </main>
   </div>
 </div>
-

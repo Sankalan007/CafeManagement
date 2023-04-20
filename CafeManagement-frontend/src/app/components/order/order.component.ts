@@ -44,27 +44,64 @@ export class OrderComponent implements OnInit {
     this.getProducts();
   }
 
+  decreaseQuantity(index: number) {
+    if (parseInt(this.order[index].quantity) > 1) {
+      this.order[index].quantity = (
+        parseInt(this.order[index].quantity) - 1
+      ).toString();
+      this.order[index].total = (
+        parseInt(this.order[index].price) * parseInt(this.order[index].quantity)
+      ).toFixed(2);
+    }
+  }
+
+  increaseQuantity(index: number) {
+    this.order[index].quantity = (
+      parseInt(this.order[index].quantity) + 1
+    ).toString();
+    this.order[index].total = (
+      parseInt(this.order[index].price) * parseInt(this.order[index].quantity)
+    ).toFixed(2);
+  }
+
+  removeItem(index: number) {
+    this.order.splice(index, 1);
+  }
+
   addFood() {
     const currentOrder = this.newOrderForm.value;
-    this.newOrderForm = this.fb.group({
-      food: [''],
-      quantity: [''],
-      orderType: [this.selectedOrderType, Validators.required],
-      paymentMethod: [this.selectedPaymentMethod, Validators.required],
-    });
+    if (currentOrder.food != '' && currentOrder.quantity != '') {
+      if (parseInt(currentOrder.quantity) < 1) {
+        this.toastr.warning(
+          'Number of items must be at least one',
+          'Invalid quantity'
+        );
+      } else {
+        this.newOrderForm = this.fb.group({
+          food: [''],
+          quantity: [''],
+          orderType: [this.selectedOrderType, Validators.required],
+          paymentMethod: [this.selectedPaymentMethod, Validators.required],
+        });
 
-    const foodAndPrice = currentOrder.food;
-    const [food, pr] = foodAndPrice.split(' - ');
-    const price = parseFloat(pr).toFixed(2);
-    const quantity = currentOrder.quantity;
-    const singleOrder: Order = {
-      name: food,
-      price: price.toString(),
-      quantity: quantity.toString(),
-      total: (parseFloat(price) * quantity).toFixed(2),
-    };
-
-    this.order.push(singleOrder);
+        const foodAndPrice = currentOrder.food;
+        const [food, pr] = foodAndPrice.split(' - ');
+        const price = parseFloat(pr).toFixed(2);
+        const quantity = currentOrder.quantity;
+        const singleOrder: Order = {
+          name: food,
+          price: price.toString(),
+          quantity: quantity.toString(),
+          total: (parseFloat(price) * quantity).toFixed(2),
+        };
+        this.order.push(singleOrder);
+      }
+    } else {
+      this.toastr.warning(
+        'Please choose both food option and the quantity',
+        'Invalid item'
+      );
+    }
   }
 
   calculateSubtotal(): string {

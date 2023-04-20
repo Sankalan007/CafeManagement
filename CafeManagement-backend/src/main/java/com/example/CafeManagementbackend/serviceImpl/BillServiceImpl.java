@@ -95,10 +95,6 @@ public class BillServiceImpl implements BillService {
                 requestMap.containsKey("totalAmount")&&
                 requestMap.containsKey("orderType")&&
                 requestMap.containsKey("productDetail");
-
-
     }
-
-
 }
 

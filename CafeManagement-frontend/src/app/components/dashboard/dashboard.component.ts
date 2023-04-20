@@ -11,21 +11,23 @@ import { OrderService } from 'src/app/services/order/order.service';
 export class DashboardComponent implements OnInit {
   allOrders!: any;
   menuItems!: any;
-  constructor(private orderService: OrderService,private menuService:MenuService) {}
+  constructor(
+    private orderService: OrderService,
+    private menuService: MenuService
+  ) {}
   ngOnInit(): void {
     this.getAllBills();
     this.getAllMenuItems();
   }
-  getAllMenuItems(){
+  getAllMenuItems() {
     this.menuService.getProducts().subscribe(
       (res: any) => {
-        this.menuItems=res;
+        this.menuItems = res;
       },
       (error: HttpErrorResponse) => {
         console.log(error.message);
       }
     );
-
   }
   getAllBills() {
     this.orderService.getAllBills().subscribe(
