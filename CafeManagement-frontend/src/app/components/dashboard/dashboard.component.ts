@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MenuService } from 'src/app/services/menu/menu.service';
 import { OrderService } from 'src/app/services/order/order.service';
 
@@ -13,13 +13,15 @@ export class DashboardComponent implements OnInit {
   menuItems!: any;
   constructor(
     public orderService: OrderService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private cdRef: ChangeDetectorRef
   ) {}
   ngOnInit(): void {
     this.getAllBills();
     this.getAllMenuItems();
   }
   getAllMenuItems() {
+    this.menuItems = [];
     this.menuService.getProducts().subscribe(
       (res: any) => {
         this.menuItems = res;
@@ -30,22 +32,20 @@ export class DashboardComponent implements OnInit {
     );
   }
   getAllBills() {
+    this.allOrders = [];
     this.orderService.getAllBills().subscribe(
       (res: any) => {
         this.allOrders = res.map((order: any) => {
-          try {
-            order.productDetail = JSON.parse(order.productDetail);
-          } catch (e) {
-            console.error('Error parsing productDetail:', e);
-          }
+          order.productDetail = JSON.parse(order.productDetail);
           return order;
         });
-
+        this.cdRef.detectChanges();
         console.log(this.allOrders);
       },
       (error: HttpErrorResponse) => {
         console.log(error.message);
       }
     );
+    // window.location.reload();
   }
 }
