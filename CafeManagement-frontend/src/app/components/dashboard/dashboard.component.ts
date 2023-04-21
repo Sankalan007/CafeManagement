@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   allOrders!: any;
   menuItems!: any;
   constructor(
-    private orderService: OrderService,
+    public orderService: OrderService,
     private menuService: MenuService
   ) {}
   ngOnInit(): void {
@@ -33,10 +33,15 @@ export class DashboardComponent implements OnInit {
     this.orderService.getAllBills().subscribe(
       (res: any) => {
         this.allOrders = res.map((order: any) => {
-          order.productDetail = JSON.parse(order.productDetail);
+          try {
+            order.productDetail = JSON.parse(order.productDetail);
+          } catch (e) {
+            console.error('Error parsing productDetail:', e);
+          }
           return order;
         });
-        // console.log(this.allOrders);
+
+        console.log(this.allOrders);
       },
       (error: HttpErrorResponse) => {
         console.log(error.message);

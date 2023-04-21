@@ -6,7 +6,16 @@
         class="text-2xl lg:text-4xl flex items-center text-purple-500"
       >
         <i class="fa fa-coffee mr-2"></i>
-        <span class="font-bold">Coffee Chronicles</span>
+        <span
+          class="font-bold"
+          style="
+            background: linear-gradient(to right, #6b46c1, #aa156e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          "
+          >Coffee Chronicles</span
+        >
       </a>
       <div class="flex items-center text-lg lg:text-xl">
         <ng-container *ngIf="!isAuthenticated()">
