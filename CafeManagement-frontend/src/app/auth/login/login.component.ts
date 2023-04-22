@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ShareddataService } from 'src/app/services/sharedData/shared-data.service';
@@ -19,10 +20,20 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     private sharedDataService: ShareddataService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit(): void {
+    // this.router.events.subscribe((event) => {
+    //   if (event instanceof NavigationEnd) {
+    //     if (event.url === '/login' || event.url === '/register') {
+    //       localStorage.removeItem('authToken');
+    //       this.document.defaultView?.location.reload();
+    //     }
+    //   }
+    // });
+    localStorage.removeItem('token');
     this.loginForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
@@ -50,7 +61,7 @@ export class LoginComponent implements OnInit {
           }
         );
 
-        this.router.navigate(['/']);
+        this.router.navigate(['/home']);
         this.toastr.success('Yay! You are logged in.', 'Login Succesful');
       },
       (error) => {
@@ -61,6 +72,6 @@ export class LoginComponent implements OnInit {
     );
   }
   goToHome() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 }
