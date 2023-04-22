@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Observable, catchError, forkJoin, map, of } from 'rxjs';
 import { MenuService } from 'src/app/services/menu/menu.service';
 import { OrderService } from 'src/app/services/order/order.service';
 
@@ -9,19 +10,41 @@ import { OrderService } from 'src/app/services/order/order.service';
   styleUrls: ['./dashboard.component.css'],
 })
 export class DashboardComponent implements OnInit {
-  allOrders!: any;
+  allOrders$!: Observable<any>;
+  ordersLength!: number;
   menuItems!: any;
   constructor(
-    public orderService: OrderService,
-    private menuService: MenuService,
-    private cdRef: ChangeDetectorRef
+    private orderService: OrderService,
+    private menuService: MenuService
   ) {}
   ngOnInit(): void {
-    this.getAllBills();
     this.getAllMenuItems();
+    // This line initializes an observable named 'allOrders$' by calling the getAllBills method of the 'orderService'.
+    // The observable is created by piping a series of operators: 'map' and 'catchError'.
+    this.allOrders$ = this.orderService.getAllBills().pipe(
+      // The 'map' operator is used to transform each emitted value from the observable stream.
+      // In this case, 'map' operator transforms the response object into an array of orders.
+      map((res: any) => {
+        // Each order's productDetail property is parsed from a JSON string into an object using 'JSON.parse'.
+        // The transformed order is returned back to the map operator.
+        this.ordersLength = res.length;
+        console.log(this.ordersLength);
+
+        return res.map((order: any) => {
+          order.productDetail = JSON.parse(order.productDetail);
+          return order;
+        });
+      }),
+
+      // The 'catchError' operator is used to catch any errors that might occur while processing the observable.
+      // It logs the error to the console and returns an observable of null.
+      catchError((error) => {
+        console.log(error);
+        return of(null);
+      })
+    );
   }
   getAllMenuItems() {
-    this.menuItems = [];
     this.menuService.getProducts().subscribe(
       (res: any) => {
         this.menuItems = res;
@@ -30,22 +53,5 @@ export class DashboardComponent implements OnInit {
         console.log(error.message);
       }
     );
-  }
-  getAllBills() {
-    this.allOrders = [];
-    this.orderService.getAllBills().subscribe(
-      (res: any) => {
-        this.allOrders = res.map((order: any) => {
-          order.productDetail = JSON.parse(order.productDetail);
-          return order;
-        });
-        this.cdRef.detectChanges();
-        console.log(this.allOrders);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.message);
-      }
-    );
-    // window.location.reload();
   }
 }
