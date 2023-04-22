@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Observable, catchError, forkJoin, map, of } from 'rxjs';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { MenuService } from 'src/app/services/menu/menu.service';
 import { OrderService } from 'src/app/services/order/order.service';
 
@@ -11,11 +12,12 @@ import { OrderService } from 'src/app/services/order/order.service';
 })
 export class DashboardComponent implements OnInit {
   allOrders$!: Observable<any>;
-  ordersLength!: number;
+  ordersLength: number = 0;
   menuItems!: any;
   constructor(
     private orderService: OrderService,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private authService: AuthService
   ) {}
   ngOnInit(): void {
     this.getAllMenuItems();
@@ -27,8 +29,8 @@ export class DashboardComponent implements OnInit {
       map((res: any) => {
         // Each order's productDetail property is parsed from a JSON string into an object using 'JSON.parse'.
         // The transformed order is returned back to the map operator.
-        this.ordersLength = res.length;
-        console.log(this.ordersLength);
+        this.ordersLength = res?.length;
+        // console.log(this.ordersLength);
 
         return res.map((order: any) => {
           order.productDetail = JSON.parse(order.productDetail);

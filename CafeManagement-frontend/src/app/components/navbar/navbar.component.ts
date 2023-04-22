@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit {
     this.sharedDataService.setUserDetails('');
     // this.sharedDataService.setUserRole('');
     this.toastr.info('You are logged out', 'Log out successful');
-    this.router.navigate(['/']);
+    this.router.navigate(['/home']);
   }
 
   getRole() {

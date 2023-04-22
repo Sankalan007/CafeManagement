@@ -71,13 +71,6 @@ export class RegisterComponent implements OnInit {
   }
 
   goToHome() {
-    if (this.authService.isAuthenticated()) {
-      this.router.navigate(['/']);
-    } else {
-      this.toastr.warning(
-        'You have to be logged in to access the website',
-        'Please log in'
-      );
-    }
+    this.router.navigate(['/home']);
   }
 }
