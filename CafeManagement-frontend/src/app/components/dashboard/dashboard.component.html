@@ -81,43 +81,59 @@
   <div class="flex flex-col items-center">
     <main class="mx-auto py-6 px-4 sm:px-6 lg:px-8 justify-center items-center">
       <section class="container bg-white rounded-lg shadow overflow-x-auto">
-        <table class="table-auto w-full whitespace-no-wrap">
+        <table class="table-auto w-full border border-gray-400">
           <thead>
-            <tr class="bg-gray-200 font-bold">
-              <th class="px-4 py-2 text-center">Ordered by</th>
-              <th class="px-4 py-2 text-center">Orders</th>
-              <th class="px-4 py-2 text-center">Total</th>
+            <tr class="bg-gray-200 font-bold border border-gray-400">
+              <th class="px-4 py-2 text-center border border-gray-400">
+                Ordered by
+              </th>
+              <th class="px-4 py-2 text-center border border-gray-400">
+                Orders
+                <thead>
+                  <tr>
+                    <th class="px-4 py-2 border border-gray-400">Name</th>
+                    <th class="px-4 py-2 border border-gray-400">Price</th>
+                    <th class="px-4 py-2 border border-gray-400">Quantity</th>
+                    <th class="px-4 py-2 border border-gray-400">Total</th>
+                  </tr>
+                </thead>
+              </th>
+              <th class="px-4 py-2 text-center border border-gray-400">
+                Total
+              </th>
             </tr>
           </thead>
 
           <tbody class="text-gray-700">
             <ng-container *ngIf="allOrders$ | async as allOrders">
               <ng-container *ngFor="let order of allOrders; let i = index">
-                <tr class="hover:bg-gray-100">
-                  <td class="px-4 py-3">
+                <tr class="hover:bg-gray-100 border border-gray-400">
+                  <td class="px-4 py-3 border border-gray-400">
                     {{ order?.createdBy }}
                   </td>
-                  <td class="px-4 py-3">
+                  <td class="px-4 py-3 border border-gray-400">
                     <table class="table-auto w-full">
-                      <thead>
-                        <tr>
-                          <th class="px-4 py-2">Name</th>
-                          <th class="px-4 py-2">Price</th>
-                          <th class="px-4 py-2">Quantity</th>
-                          <th class="px-4 py-2">Total</th>
-                        </tr>
-                      </thead>
                       <tbody>
                         <tr *ngFor="let item of order.productDetail">
-                          <td class="px-4 py-3">{{ item?.name }}</td>
-                          <td class="px-4 py-3">{{ item?.price }}</td>
-                          <td class="px-4 py-3">{{ item?.quantity }}</td>
-                          <td class="px-4 py-3">{{ item?.total }}</td>
+                          <td class="px-4 py-3 border border-gray-400">
+                            {{ item?.name }}
+                          </td>
+                          <td class="px-4 py-3 border border-gray-400">
+                            {{ item?.price }}
+                          </td>
+                          <td class="px-4 py-3 border border-gray-400">
+                            {{ item?.quantity }}
+                          </td>
+                          <td class="px-4 py-3 border border-gray-400">
+                            {{ item?.total }}
+                          </td>
                         </tr>
                       </tbody>
                     </table>
                   </td>
-                  <td class="px-4 py-3">{{ order?.totalAmount }}</td>
+                  <td class="px-4 py-3 border border-gray-400">
+                    {{ order?.totalAmount }}
+                  </td>
                 </tr>
               </ng-container>
             </ng-container>
