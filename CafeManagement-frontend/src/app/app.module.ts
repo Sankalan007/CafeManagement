@@ -20,6 +20,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { TermsandconditionsComponent } from './components/termsandconditions/termsandconditions.component';
+import { JwtModule } from '@auth0/angular-jwt';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,13 @@ import { TermsandconditionsComponent } from './components/termsandconditions/ter
       closeButton: true,
     }),
     BrowserAnimationsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('token'),
+        allowedDomains: ['example.com'],
+        disallowedRoutes: ['example.com/examplebadroute/'],
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
