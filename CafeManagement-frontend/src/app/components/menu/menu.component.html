@@ -1,5 +1,5 @@
 <!-- menu.component.html -->
-<div class="min-h-[87vh] bg-gradient-to-r from-blue-700 to-gray-800">
+<div class="min-h-[93vh] lg:min-h-[93vh] bg-gradient-to-r from-blue-700 to-gray-800">
   <ng-container *ngIf="getRole()">
     <div
       class="flex justify-center fixed lg:top-[13vh] md:[12vh] sm:[10vh] left-[42px] w-full z-50 text-sm lg:text-2xl md:text-xl sm:text-lg"
@@ -73,10 +73,10 @@
   </ng-container>
 
   <div
-    class="sm:flex sm:items-center sm:justify-between"
+    class="flex p-6 pt-24 justify-center items-center"
     *ngIf="items.length < 1"
   >
-    <h2 class="text-3xl font-bold text-white mb-4 sm:mb-0">
+    <h2 class="text-3xl font-bold text-white mb-4 sm:mb-0 ">
       No menu items added yet
     </h2>
   </div>
