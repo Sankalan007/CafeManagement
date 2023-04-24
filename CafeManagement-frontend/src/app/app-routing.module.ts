@@ -11,7 +11,7 @@ import { NgModule } from '@angular/core';
 import { TermsandconditionsComponent } from './components/termsandconditions/termsandconditions.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   {
     path: 'dashboard',
